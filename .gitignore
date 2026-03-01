@@ -26,3 +26,4 @@ logs
 #Datenbank
 *.db
 prisma
+/app/generated/prisma
