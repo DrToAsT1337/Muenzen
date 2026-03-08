@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  }
+
+model Euromuenzset {
+
+  id Int @id @default(autoincrement())
+  artikelnummer String
+  name String
+  land  String
+  qualitaet String
+  jahrgang Int
+  praegeort String?
+  anzahl Int @default(1)
+
+}
+
+model Euromuenzeinzel {
+
+  id Int @id @default(autoincrement())
+  artikelnummer String?
+  wertInCent Int
+  land String
+  praegestaette String?
+  anzahl Int @default(1)
+}

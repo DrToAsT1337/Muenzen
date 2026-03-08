@@ -25,7 +25,7 @@ logs
 
 #Datenbank
 *.db
-prisma
+
 /app/generated/prisma
 
 /app/generated/prisma
