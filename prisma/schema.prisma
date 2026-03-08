@@ -32,3 +32,13 @@ model Euromuenzeinzel {
   praegestaette String?
   anzahl Int @default(1)
 }
+
+model Sondermuenzenset {
+
+  id Int @default(autoincrement())
+  name String 
+  nominalWertinCent Int // 2000 für 20€
+  reinheit Int
+  gewichtInGramm Float
+
+}
