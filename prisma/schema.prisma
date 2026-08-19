@@ -1,34 +1,73 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "sqlite"
-  }
+}
 
 model Euromuenzset {
-
-  id Int @id @default(autoincrement())
-  artikelnummer String
-  name String
-  land  String
-  qualitaet String
-  jahrgang Int
-  praegeort String?
-  anzahl Int @default(1)
-
+  id            Int      @id @default(autoincrement())
+  artikelnummer String?   
+  name          String   
+  land          String   
+  qualitaet     String   
+  jahrgang      Int      
+  anzahl        Int      @default(1) 
+  wertInCent    Int?     
 }
 
 model Euromuenzeinzel {
-
-  id Int @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   artikelnummer String?
-  wertInCent Int
-  land String
+  wertInCent    Int
+  land          String
   praegestaette String?
-  anzahl Int @default(1)
+  anzahl        Int      @default(1)
+}
+
+model Sondermuenze {
+  id              Int      @id @default(autoincrement())
+  motiv           String   // z.B. "50 Jahre Sendung mit der Maus"
+  nennwertInCent  Int     // Der aufgedruckte Wert, z.B. 2000 für 20€
+  material        String   // z.B. "Silber", "Gold", "Kupfer-Nickel"
+  reinheit        String  // z.B. "925" oder "999"
+  gewichtInGramm  Float?   // z.B. 18.0
+  jahrgang        Int?
+  praegestaette   String?  // A, D, F, G, J 
+  erhaltung       String?   // z.B. "Spiegelglanz" (PP)
+  
+  // Zubehör & Zustand:
+  zertifikat      Boolean  @default(false)
+  schatulle       Boolean  @default(false)
+  kapsel          Boolean  @default(true)
+  
+  // Historie:
+  kaufpreisInCent Int?     
+  auflage         Int?     
+  anzahl          Int      @default(1)
+  notizen         String?  
+}
+
+model DdrSondermuenze {
+  id              Int      @id @default(autoincrement())
+  katalogNummer   String?  // Oft die "Jaeger-Nummer" (z.B. "J. 1521"), extrem wichtig für Sammler!
+  motiv           String   // z.B. "20 Jahre DDR" oder "Karl Marx"
+  
+  nennwertMark    Int?     // Meistens 5, 10 oder 20 Mark
+  material        String   // z.B. "Silber", "Neusilber", "Kupfer-Nickel"
+  reinheit        String?  // Bei den Silbermünzen oft "625" oder "800"
+  gewichtInGramm  Float?   // Für Silbermünzen wichtig für den Materialwert
+  
+  jahrgang        Int
+  erhaltung       String   // z.B. "Stempelglanz" oder "Polierte Platte"
+  
+  // Zubehör & Zustand (DDR-Münzen waren oft in kleinen Folien/Blistern eingeschweißt)
+  inFolie         Boolean  @default(false) 
+  kapsel          Boolean  @default(false)
+  
+  // Historie:
+  auflage         Int?     // Manche haben sehr geringe Auflagen = hoher Wert!
+  anzahl          Int      @default(1)
+  notizen         String?  // Platz für "Starke Patina", "Randfehler", etc.
 }
