@@ -10,7 +10,7 @@ export default defineCachedEventHandler(async (event) => {
         const pkg = await import('@prisma/client')
         const { PrismaClient } = pkg.default || pkg
         const { PrismaLibSql } = await import('@prisma/adapter-libsql')
-        const { createClient } = await import('@libsql/client')
+        
 
         const  dbPath = path.join(process.cwd(), 'muenzen.db')
         const adapter = new PrismaLibSql({ url: `file:${dbPath}` })
