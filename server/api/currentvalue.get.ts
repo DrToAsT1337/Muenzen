@@ -46,7 +46,7 @@ export default defineCachedEventHandler(async (event) => {
             }
         })
 
-        // let = 
+        // let = inaktive Variable, die das Gesamtgewicht der Silbermünzen speichern soll
         let totalSilverWeight = 0
 
         //Berechnung des Gesamtgewichts der Silbermünzen inklusive Reinheit
@@ -96,7 +96,7 @@ export default defineCachedEventHandler(async (event) => {
         throw new Error('Fehler beim Abrufen der aktuellen Preise von Silber und Gold.')
         }
     }, {
-
+        
         maxAge: 60 * 60 * 5000  //Cache für 5 Stunden
     })
 
