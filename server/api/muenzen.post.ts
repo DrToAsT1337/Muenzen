@@ -5,9 +5,9 @@ let prisma: any = undefined
 
 export default defineEventHandler(async (event) => {
 
-    const body = await readBody(event)
-
     const prisma = await getPrisma()
+
+    const body = await readBody(event)
 
     try{
         const neueSondermuenze = await prisma.Sondermuenze.create({
