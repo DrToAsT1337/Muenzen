@@ -1,25 +1,12 @@
 
 import path from 'path'
 
-let prisma: any
+let prisma: any = undefined
 
 export default defineCachedEventHandler(async (event) => {
     
-    //Datenbankverbidnung sicherstellen
-    if (!prisma) {
-        const pkg = await import('@prisma/client')
-        const { PrismaClient } = pkg.default || pkg
-        const { PrismaLibSql } = await import('@prisma/adapter-libsql')
-        
-
-        const  dbPath = path.join(process.cwd(), 'muenzen.db')
-        const adapter = new PrismaLibSql({ url: `file:${dbPath}` })
-        prisma = new PrismaClient({ adapter })
-
-        if(!prisma) {
-            throw new Error('Fehler beim Verbinden mit der Datenbank.')
-        }   
-    }
+    // Dynamische Importierung der Prisma-Instanz
+    const prisma = await getPrisma()
 
     try{
         // Fetch der aktuellen Preise von Silber und Gold von der API
@@ -36,8 +23,6 @@ export default defineCachedEventHandler(async (event) => {
         // Berechnung der Preise pro Gramm (1 Unze = 31,1035 Gramm)
         const silverPricepergram = silverPriceasounce / 31.1035
         const goldPricepergram = goldPriceasounce / 31.1035
-
-       
 
         //Anzahl der Silbermünzen aus der Datenbank abrufen
         const silvercount = await prisma.Sondermuenze.findMany({
