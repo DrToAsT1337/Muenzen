@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
         const neueSondermuenze = await prisma.Sondermuenze.create({
             data: {
                 motiv: String(body.motiv),
+                setname: String(body.setname),
                 nennwertInCent: Number(body.nennwertInCent),
                 material: String(body.material),
                 reinheit: String(body.reinheit),
