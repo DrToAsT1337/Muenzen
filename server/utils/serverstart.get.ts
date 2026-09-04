@@ -10,7 +10,7 @@ import type { PrismaClient } from '@prisma/client'
 //globale leere Variable für die PrismaInstanz.(nur zur vorbereitung angelegt)
 let prismaInstance: PrismaClient | null = null
 
-//export = global aufrufbare Variable
+//export = global aufrufbare Funktion
 export const getPrisma = async () => {
 
     if(!prismaInstance) {
