@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     const prisma = await getPrisma()
 
     try{
-        const neueSondermuenze = await prisma.Sondermuenze.create({
+        const neueSondermuenze = await prisma?.sondermuenze.create({
             data: {
                 motiv: String(body.motiv),
                 setname: String(body.setname),
