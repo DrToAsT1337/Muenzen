@@ -46,7 +46,7 @@ const muenzeSpeichern = async () => {
 
             speichernStatus.value = 'Speichern war erfolgreich!'
 
-            form.value.motiv = '',
+            form.value.motiv = ''
 
 
         }else{
@@ -59,4 +59,29 @@ const muenzeSpeichern = async () => {
         speichernStatus.value = 'Netzwerkprobleme'
     }
 }
-<script>
+</script>
+
+<template>
+
+    <div style="max-width: 500px; margin: 40px auto; font-family: timesnewroman;">
+        
+        
+        <h1>Neue Sondermünze eintragen</h1>
+
+        <form @submit.prevent="muenzeSpeichern" style="display: flex; flex-direction: column; gap: 15px">
+
+            <div>
+                <label>Name der Münze</label><br>
+                <input v-model="form.motiv" required type="text" style="width: 100%; padding: 8px">
+            </div>
+
+            <div>
+                <label>Name des Sets</label><br>
+                <input v-model="form.setname" required type="text" style="width: auto; padding: 8px">
+                <small style="color: dimgrey;">Bleibt gespeichert</small>
+            </div>
+
+
+        </form>
+    </div>
+</template>
