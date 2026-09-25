@@ -19,7 +19,7 @@ const form = ref({
 
 })
 
-const speichernStatus = ('ref')
+const speichernStatus = ref('')
 
 //Script zum speichern neuer Sondermünzen
 const muenzeSpeichern = async () => {
@@ -69,19 +69,74 @@ const muenzeSpeichern = async () => {
         <h1>Neue Sondermünze eintragen</h1>
 
         <form @submit.prevent="muenzeSpeichern" style="display: flex; flex-direction: column; gap: 15px">
-
+            
+            //Label und Input-Feld für den Namen der Münze, der Name des Sets, der Nennwert in Cent und das Material der Münze. Die Werte werden mit v-model an die form-Variable gebunden, sodass sie beim Absenden des Formulars an die API gesendet werden können.
             <div>
                 <label>Name der Münze</label><br>
-                <input v-model="form.motiv" required type="text" style="width: 100%; padding: 8px">
+                <input v-model="form.motiv" required type="text" style="width: 100%; padding: 5px">
             </div>
 
             <div>
                 <label>Name des Sets</label><br>
-                <input v-model="form.setname" required type="text" style="width: auto; padding: 8px">
+                <input v-model="form.setname" required type="text" style="width: auto; padding: 5px">
                 <small style="color: dimgrey;">Bleibt gespeichert</small>
             </div>
 
+            <div>
+                <label>Nennwert der Münze in Cent!</label>
+                <input v-model="form.nennwertInCent" required type="number" style="width: 100%; padding: 5px">
+                <small style="color: dimgrey;">Beispiel: 200 für 2 Euro</small>
+            </div>
 
+            <div>
+                <label>Material</label><br>
+                <select v-model="form.material" style="width: 100%; padding: 5px">
+                    <option value="Silber">Silber</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Kupfer">Kupfer</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Reinheit in Prozent</label><br>
+                <input v-model="form.reinheit" required type="number" style="width: 100%; padding: 5px">
+                <small style="color: dimgrey;">Beispiel: 925 oder 999</small>
+            </div>
+
+            <div>
+                <label>Gewicht in Gramm</label><br>
+                <input v-model="form.gewichtInGramm" required type="number" style="width: 100%; padding: 5px">
+                <small style="color: dimgrey;">Beispiel: 15 für 15 Gramm</small>
+            </div>
+            
+            <div>
+                <label>Jahrgang</label><br>
+                <input v-model="form.jahrgang" required type="number" style="width: auto; padding: 5px">
+            </div>
+
+            <div>
+                <label>Zertifikat</label><br>
+                <input v-model="form.zertifikat" type="checkbox">
+            </div>
+
+            <div>
+                <label>Schatulle</label><br>
+                <input v-model="form.schatulle" type="checkbox">
+            </div>
+
+            <div>
+                <label>Kapsel</label><br>
+                <input v-model="form.kapsel" type="checkbox">    
+            </div>
+
+            <div>
+                <label>Anzahl</label><br>
+                <input v-model="form.anzahl" required type="number" style="width: 100%; padding: 8px">
+            </div>
+
+            <button type="submit" style="padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Speichern</button>
+            <p>{{ speichernStatus }}</p>
+       
         </form>
     </div>
 </template>
