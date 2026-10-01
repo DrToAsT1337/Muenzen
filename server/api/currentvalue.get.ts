@@ -3,19 +3,24 @@ import path from 'path'
 
 let prisma: any = undefined
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
     
     // Dynamische Importierung der Prisma-Instanz
     const prisma = await getPrisma()
 
     try{
         // Fetch der aktuellen Preise von Silber und Gold von der API
-        const apiAnswer = await $fetch('https://api.edelmetalle.de/public.json')
+        //const apiAnswer = await $fetch('https://api.edelmetalle.de/public.json')
 
-        if (!apiAnswer) {
-            throw new Error('Fehler beim Abrufen der aktuellen Preise von Silber und Gold von der API.')
-        }
+        //if (!apiAnswer) {
+        //    throw new Error('Fehler beim Abrufen der aktuellen Preise von Silber und Gold von der API.')
+        //}
         
+        const apiAnswer = {
+            "silber_eur": 25.50, // Beispielwert für Silberpreis in Euro pro Unze
+            "gold_eur": 1800.00  // Beispielwert für Goldpreis in Euro pro Unze
+        }
+
         // Extrahieren der Preise für Silber und Gold aus der API-Antwort
         const silverPriceasounce = apiAnswer.silber_eur
         const goldPriceasounce = apiAnswer.gold_eur
@@ -25,7 +30,7 @@ export default defineCachedEventHandler(async (event) => {
         const goldPricepergram = goldPriceasounce / 31.1035
 
         //Anzahl der Silbermünzen aus der Datenbank abrufen
-        const silvercount = await prisma.Sondermuenze.findMany({
+        const silvercount = await prisma.sondermuenze.findMany({
             where: {
                 material: 'Silber'
             }
@@ -44,7 +49,7 @@ export default defineCachedEventHandler(async (event) => {
         }
 
         //Anzahl der Goldmünzen aus der Datenbank abrufen
-        const goldcount = await prisma.Sondermuenze.findMany({
+        const goldcount = await prisma.sondermuenze.findMany({
             where: {
                 material: 'Gold'
             }
