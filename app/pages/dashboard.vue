@@ -2,11 +2,17 @@
 
 <script setup>
 
-const { data, error } = await useFetch('/api/currentvalue')
-
-if(error){
-    throw errorMessages="Daten konnten nicht geladen werden"
+const { data, error } = await useFetch('/api/currentvalue', {
+    cache: 'no-store',
+    getCachedData: () => undefined
+})
+   
+if(error.value) {
+    console.error('Fehler beim Abrufen der Daten: ', error.value)
 }
+
+console.log('Daten aus der API: ', data.value)
+
 
 </script>
 
