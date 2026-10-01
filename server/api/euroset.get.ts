@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const prisma = await getPrisma()
 
   try {
-    const alleSets = await prisma.euromuenzset.findMany()
+    const alleSets = await prisma.sondermuenze.findMany()
     console.log('5. Daten erfolgreich ausgelesen!', alleSets)
     return alleSets
   } catch (error: any) {
