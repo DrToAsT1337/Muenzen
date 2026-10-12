@@ -1,6 +1,4 @@
 <script setup>
-// Hier rufen wir unsere neue API-Route ab
-const { data: meineMuenzen } = await useFetch('/api/euroset')
 </script>
 
 <template>
@@ -8,8 +6,13 @@ const { data: meineMuenzen } = await useFetch('/api/euroset')
     <h1>Willkommen im Münz-Archiv! 🪙</h1>
 
     <NuxtPage />
-    
-    <!-- Das "pre" Tag zeigt die Rohdaten schön formatiert an -->
-    <pre>{{ meineMuenzen }}</pre>
   </div>
 </template>
+
+<style>
+    body {
+        background-color: rgb(255, 193, 122);
+        margin: 0;
+        padding: 0
+    }
+</style>
