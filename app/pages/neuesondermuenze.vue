@@ -62,81 +62,61 @@ const muenzeSpeichern = async () => {
 </script>
 
 <template>
+  <div style="max-width: 700px; margin: 20px auto; font-family: 'Times New Roman', serif;">
+    <h1>Neue Sondermünze eintragen</h1>
 
-    <div style="max-width: 500px; margin: 40px auto; font-family: timesnewroman;">
-        
-        
-        <h1>Neue Sondermünze eintragen</h1>
+    <!-- NEU: display: grid statt flex. auto-fit macht Spalten automatisch! -->
+    <form @submit.prevent="muenzeSpeichern" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; align-items: end;">
+      
+      <div>
+        <label>Name des Sets:</label><br>
+        <input v-model="form.setname" required type="text" style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
 
-        <form @submit.prevent="muenzeSpeichern" style="display: flex; flex-direction: column; gap: 15px">
-            
-            //Label und Input-Feld für den Namen der Münze, der Name des Sets, der Nennwert in Cent und das Material der Münze. Die Werte werden mit v-model an die form-Variable gebunden, sodass sie beim Absenden des Formulars an die API gesendet werden können.
-            <div>
-                <label>Name der Münze</label><br>
-                <input v-model="form.motiv" required type="text" style="width: 100%; padding: 5px">
-            </div>
+      <div>
+        <label>Motiv der Münze:</label><br>
+        <input v-model="form.motiv" required type="text" style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
 
-            <div>
-                <label>Name des Sets</label><br>
-                <input v-model="form.setname" required type="text" style="width: auto; padding: 5px">
-                <small style="color: dimgrey;">Bleibt gespeichert</small>
-            </div>
+      <div>
+        <label>Nennwert (in Cent):</label><br>
+        <input v-model="form.nennwertInCent" required type="number" style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
 
-            <div>
-                <label>Nennwert der Münze in Cent!</label>
-                <input v-model="form.nennwertInCent" required type="number" style="width: 100%; padding: 5px">
-                <small style="color: dimgrey;">Beispiel: 200 für 2 Euro</small>
-            </div>
+      <div>
+        <label>Material:</label><br>
+        <select v-model="form.material" style="width: 100%; padding: 8px; box-sizing: border-box;">
+          <option>Silber</option>
+          <option>Gold</option>
+          <option>Kupfer-Nickel</option>
+        </select>
+      </div>
 
-            <div>
-                <label>Material</label><br>
-                <select v-model="form.material" style="width: 100%; padding: 5px">
-                    <option value="Silber">Silber</option>
-                    <option value="Gold">Gold</option>
-                    <option value="Kupfer">Kupfer</option>
-                </select>
-            </div>
+      <div>
+        <label>Gewicht (in Gramm):</label><br>
+        <input v-model="form.gewichtInGramm" required type="number" step="0.01" style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
 
-            <div>
-                <label>Reinheit in Prozent</label><br>
-                <input v-model="form.reinheit" required type="number" style="width: 100%; padding: 5px">
-                <small style="color: dimgrey;">Beispiel: 925 oder 999</small>
-            </div>
+      <div>
+        <label>Reinheit (z.B. 999):</label><br>
+        <input v-model="form.reinheit" required type="text" style="width: 100%; padding: 8px; box-sizing: border-box;">
+      </div>
 
-            <div>
-                <label>Gewicht in Gramm</label><br>
-                <input v-model="form.gewichtInGramm" required type="number" style="width: 100%; padding: 5px">
-                <small style="color: dimgrey;">Beispiel: 15 für 15 Gramm</small>
-            </div>
-            
-            <div>
-                <label>Jahrgang</label><br>
-                <input v-model="form.jahrgang" required type="number" style="width: auto; padding: 5px">
-            </div>
+     
+      <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; background: limegreen; padding: 10px; border-radius: 5px;">
+        <label><input type="checkbox" v-model="form.zertifikat"> Zertifikat</label>
+        <label><input type="checkbox" v-model="form.schatulle"> Schatulle</label>
+        <label><input type="checkbox" v-model="form.kapsel"> Kapsel</label>
+      </div>
 
-            <div>
-                <label>Zertifikat</label><br>
-                <input v-model="form.zertifikat" type="checkbox">
-            </div>
+      
+      <button type="submit" style="grid-column: 1 / -1; padding: 10px; background: green; color: white; border: none; cursor: pointer;">
+        Münze speichern
+      </button>
 
-            <div>
-                <label>Schatulle</label><br>
-                <input v-model="form.schatulle" type="checkbox">
-            </div>
+      <NuxtLink to="/">➔ Startseite besuchen</NuxtLink>
+      <NuxtLink to="/dashboard">➔ Statistiken besuchen</NuxtLink>
 
-            <div>
-                <label>Kapsel</label><br>
-                <input v-model="form.kapsel" type="checkbox">    
-            </div>
-
-            <div>
-                <label>Anzahl</label><br>
-                <input v-model="form.anzahl" required type="number" style="width: 100%; padding: 8px">
-            </div>
-
-            <button type="submit" style="padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Speichern</button>
-            <p>{{ speichernStatus }}</p>
-       
-        </form>
-    </div>
+    </form>
+  </div>
 </template>
