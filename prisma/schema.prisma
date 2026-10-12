@@ -28,11 +28,12 @@ model Euromuenzeinzel {
 
 model Sondermuenze {
   id              Int      @id @default(autoincrement())
-  motiv           String   // z.B. "50 Jahre Sendung mit der Maus"
-  nennwertInCent  Int     // Der aufgedruckte Wert, z.B. 2000 für 20€
-  material        String   // z.B. "Silber", "Gold", "Kupfer-Nickel"
-  reinheit        String  // z.B. "925" oder "999"
-  gewichtInGramm  Float   // z.B. 18.0
+  motiv           String    // z.B. "50 Jahre Sendung mit der Maus"
+  setname         String    // z.B. "Sondermünzen 2025"
+  nennwertInCent  Int       // Der aufgedruckte Wert, z.B. 2000 für 20€
+  material        String    // z.B. "Silber", "Gold", "Kupfer-Nickel"
+  reinheit        String    // z.B. "925" oder "999"
+  gewichtInGramm  Float     // z.B. 18.0
   jahrgang        Int
   praegestaette   String?  // A, D, F, G, J 
   erhaltung       String?   // z.B. "Spiegelglanz" (PP)

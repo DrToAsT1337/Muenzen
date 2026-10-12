@@ -1,35 +1,19 @@
 
 import path from 'path'
 
-let prisma: any
+let prisma: any = undefined
 
 export default defineEventHandler(async (event) => {
 
     const body = await readBody(event)
-
-    if(!prisma) {
-
-    //Datenbankverbidnung sicherstellen
-        if (!prisma) {
-            const pkg = await import('@prisma/client')
-            const { PrismaClient } = pkg.default || pkg
-            const { PrismaLibSql } = await import('@prisma/adapter-libsql')
-            
     
-            const  dbPath = path.join(process.cwd(), 'muenzen.db')
-            const adapter = new PrismaLibSql({ url: `file:${dbPath}` })
-            prisma = new PrismaClient({ adapter })
-    
-            if(!prisma) {
-            throw new Error('Fehler beim Verbinden mit der Datenbank.')
-            }   
-        }
-    }
+    const prisma = await getPrisma()
 
     try{
-        const neueSondermuenze = await prisma.Sondermuenze.create({
+        const neueSondermuenze = await prisma?.sondermuenze.create({
             data: {
                 motiv: String(body.motiv),
+                setname: String(body.setname),
                 nennwertInCent: Number(body.nennwertInCent),
                 material: String(body.material),
                 reinheit: String(body.reinheit),
