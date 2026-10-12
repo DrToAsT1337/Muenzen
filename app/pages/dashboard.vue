@@ -13,13 +13,7 @@ if(error.value) {
 
 console.log('Daten aus der API: ', data.value)
 
-const { data2, error2 } = await useFetch('/api/currentcount', {
-    cache: 'no-store',
-    getCachedData: () => undefined
-})
-if(error2.value) {
-    console.error('Fehler beim Laden der Anzahl: ', error2.value)
-}
+
 
 
 </script>
@@ -30,13 +24,13 @@ if(error2.value) {
 
     <h1>Statistiken zu den Münzen</h1>
 
-    <label>Silberwert: {{ data.currentSilverValue }}</label><br><br>
+    <label>Silberwert: {{ (data?.currentSilverValue || 0).toFixed(2) + '€'}}</label><br><br>
 
-    <label>Goldwert: {{ data.currentGoldValue }}</label><br><br>
+    <label>Goldwert: {{ (data?.currentGoldValue || 0).toFixed(2) + '€'}}</label><br><br>
 
-    <label>Gesamtwert: {{ data.totalValue }}</label><br><br>
+    <label>Gesamtwert: {{ (data?.totalValue || 0).toFixed(2) + '€' }}</label><br><br>
 
-    <label>Anzahl aller Münzen: {{ data2.currentCount }}</label><br><br>
+    <label>Anzahl aller Münzen: {{ data?.currentCountSM || + 'Stück' }}</label><br><br>
 
     <NuxtLink to="/">➔ Startseite besuchen</NuxtLink>
 
